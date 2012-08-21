@@ -19,7 +19,7 @@ public class Participant implements Serializable
 	@Id
 	@Column(name="PARTICIPANTID")
 	@GeneratedValue
-	private Integer participantid;
+	private Integer participantId;
 	
 	@Column(name="NAME")
 	private String name;
@@ -66,12 +66,12 @@ public class Participant implements Serializable
     @OneToMany(mappedBy="participant")
     private Set<ParticipantSeat> seats;
 
-    public Integer getParticipantid() {
-        return participantid;
+    public Integer getParticipantId() {
+        return participantId;
     }
 
-    public void setParticipantid(Integer participantid) {
-        this.participantid = participantid;
+    public void setParticipantId(Integer participantId) {
+        this.participantId = participantId;
     }
 
     public String getName() {

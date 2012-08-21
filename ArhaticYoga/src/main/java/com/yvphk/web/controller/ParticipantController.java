@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.yvphk.service.ParticipantService;
 import com.yvphk.model.form.RegisteredParticipant;
 import com.yvphk.model.form.ParticipantCriteria;
+import com.yvphk.model.form.Participant;
+import com.yvphk.common.Util;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.ArrayList;
 
 @Controller
 public class ParticipantController
@@ -56,7 +60,23 @@ public class ParticipantController
     {
         participantService.registerParticipant(registeredParticipant);
         
-        return "redirect:/welcome.jsp";
+        return "redirect:/welcome.htm";
+    }
+
+    @RequestMapping("/update")
+    public String updateParticipant (HttpServletRequest request, Map<String, Object> map)
+    {
+        String strParticipantId = request.getParameter("participantId");
+        if (!Util.nullOrEmptyOrBlank(strParticipantId)) {
+            Integer participantId = Integer.parseInt(strParticipantId);
+            Participant participant = participantService.getParticipant(participantId);
+            RegisteredParticipant registeredParticipant = new RegisteredParticipant();
+            registeredParticipant.setParticipant(participant);
+            registeredParticipant.setComments(new ArrayList(participant.getComments()));
+            map.put("RegisteredParticipant", registeredParticipant);
+            return "register";
+        }
+        return "null";
     }
 
 }

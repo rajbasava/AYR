@@ -68,16 +68,11 @@ public class VolunteerDAOImpl implements VolunteerDAO
                 return true;
             }
             else {
-                if (loggedInVolunteer.getLoggedout() == null) {
-                    return false;
-                }
-                else {
-                    loggedInVolunteer.setCounter(login.getCounter());
-                    loggedInVolunteer.setLoggedin(new Date());
-                    loggedInVolunteer.setLoggedout(null);
-                    sessionFactory.getCurrentSession().update(loggedInVolunteer);
-                    return true;
-                }
+                loggedInVolunteer.setCounter(login.getCounter());
+                loggedInVolunteer.setLoggedin(new Date());
+                loggedInVolunteer.setLoggedout(null);
+                sessionFactory.getCurrentSession().update(loggedInVolunteer);
+                return true;
             }
         }
 

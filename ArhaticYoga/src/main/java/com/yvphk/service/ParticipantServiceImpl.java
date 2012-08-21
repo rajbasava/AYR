@@ -30,6 +30,12 @@ public class ParticipantServiceImpl implements ParticipantService
     }
 
     @Transactional
+    public Participant getParticipant(Integer participantId)
+    {
+        return participantDAO.getParticipant(participantId);
+    }
+
+    @Transactional
     public List<Participant> listParticipants(ParticipantCriteria participantCriteria) {
 
         return participantDAO.listParticipants(participantCriteria);

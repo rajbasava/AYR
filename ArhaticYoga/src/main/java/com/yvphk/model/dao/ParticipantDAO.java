@@ -17,6 +17,6 @@ public interface ParticipantDAO
 {
     public void addParticipant (RegisteredParticipant registeredParticipant);
     public void addComments (Participant participant, Comment comment);
-    public Participant getUser (Integer userId);
+    public Participant getParticipant (Integer userId);
     public List<Participant> listParticipants(ParticipantCriteria participantCriteria);
 }

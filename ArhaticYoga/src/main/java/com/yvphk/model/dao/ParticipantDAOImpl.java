@@ -42,10 +42,10 @@ public class ParticipantDAOImpl implements ParticipantDAO
         
     }
 
-    public Participant getUser (Integer participantId)
+    public Participant getParticipant (Integer participantId)
     {
-        Participant participant = (Participant) sessionFactory.getCurrentSession().load(
-                Participant.class, participantId);
+        Session session = sessionFactory.openSession();
+        Participant participant = (Participant)session.load(Participant.class, participantId);
         return participant;
     }
 

@@ -67,8 +67,13 @@
 		<td><c:out value="${participant.eventkit}"/></td>
 		<td><c:out value="${participant.amountpaid}"/></td>
 		<td><c:out value="${participant.dueamount}"/></td>
-		<td><a href="comments/<c:out value="${participant.participantid}"/>"><spring:message code="label.comments"/></a></td>
-		<td><a href="update/<c:out value="${participant.participantid}"/>"><spring:message code="label.action"/></a></td>
+		<td><a href="comments/<c:out value="${participant.participantId}"/>"><spring:message code="label.comments"/></a></td>
+		<td>
+            <form id="updatePart<c:out value="${participant.participantId}"/>" method="post" action="update.htm">
+            <input type="hidden" name="participantId" value="<c:out value="${participant.participantId}"/>" />
+            <a href="#" onclick="document.getElementById('updatePart<c:out value="${participant.participantId}"/>').submit();"><spring:message code="label.update"/></a>
+            </form>
+		</td>
 	</tr>
 </c:forEach>
 </table>

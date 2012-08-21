@@ -9,6 +9,8 @@ package com.yvphk.model.form;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name="PHK_SEAT")
 public class ParticipantSeat implements Serializable
 {
     @Id
@@ -23,7 +25,7 @@ public class ParticipantSeat implements Serializable
     @Column(name="LEVEL")
     private String level;
 
-    @Column(name="seat")
+    @Column(name="SEAT")
     private Integer seat;
 
     public Integer getId() {

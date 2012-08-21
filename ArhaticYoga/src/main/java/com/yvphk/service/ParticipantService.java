@@ -15,5 +15,6 @@ import java.util.List;
 public interface ParticipantService
 {
     public void registerParticipant(RegisteredParticipant registeredParticipant);
+    public Participant getParticipant(Integer participantId);
     public List<Participant> listParticipants(ParticipantCriteria participantCriteria);
 }
