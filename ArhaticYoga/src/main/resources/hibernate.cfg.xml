@@ -8,6 +8,6 @@
 		<mapping class="com.yvphk.model.form.Participant"/>
 		<mapping class="com.yvphk.model.form.Volunteer"/>
 		<mapping class="com.yvphk.model.form.LoggedInVolunteer"/>
-		<mapping class="com.yvphk.model.form.ParticipantSeat"/>
+        <mapping class="com.yvphk.model.form.ParticipantSeat"/>
     </session-factory>
 </hibernate-configuration>
