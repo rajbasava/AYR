@@ -30,7 +30,9 @@ public class ParticipantController
     @RequestMapping("/register")
     public String newParticipant(Map<String, Object> map)
     {
-        map.put("RegisteredParticipant", new RegisteredParticipant());
+        RegisteredParticipant registeredParticipant = new RegisteredParticipant();
+        registeredParticipant.setAction(RegisteredParticipant.ActionRegister);
+        map.put("registeredParticipant", registeredParticipant);
         return "register";
     }
 
@@ -46,7 +48,7 @@ public class ParticipantController
                              ParticipantCriteria participantCriteria,
                              BindingResult result)
     {
-        map.put("participantCriteria", new ParticipantCriteria());
+        map.put("participantCriteria", participantCriteria);
         if (participantCriteria != null) {
             map.put("participantList", participantService.listParticipants(participantCriteria));
         }
@@ -59,8 +61,13 @@ public class ParticipantController
                              BindingResult result)
     {
         participantService.registerParticipant(registeredParticipant);
-        
-        return "redirect:/welcome.htm";
+        String action = registeredParticipant.getAction();
+
+        if (RegisteredParticipant.ActionUpdate.equals(action)) {
+            return "redirect:/search.htm";
+        }
+
+        return "redirect:/welcome.htm"; 
     }
 
     @RequestMapping("/update")
@@ -73,7 +80,8 @@ public class ParticipantController
             RegisteredParticipant registeredParticipant = new RegisteredParticipant();
             registeredParticipant.setParticipant(participant);
             registeredParticipant.setComments(new ArrayList(participant.getComments()));
-            map.put("RegisteredParticipant", registeredParticipant);
+            registeredParticipant.setAction(RegisteredParticipant.ActionUpdate);
+            map.put("registeredParticipant", registeredParticipant);
             return "register";
         }
         return "null";

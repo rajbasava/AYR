@@ -19,6 +19,7 @@ import com.yvphk.model.form.ParticipantCriteria;
 import com.yvphk.common.Util;
 
 import java.util.List;
+import java.util.Date;
 
 @Repository
 public class ParticipantDAOImpl implements ParticipantDAO
@@ -29,12 +30,23 @@ public class ParticipantDAOImpl implements ParticipantDAO
     public void addParticipant(RegisteredParticipant registeredParticipant)
     {
         Participant participant = registeredParticipant.getParticipant();
-        participant.setActive(true);
-        sessionFactory.getCurrentSession().save(participant);
+
+        if (RegisteredParticipant.ActionRegister.equals(registeredParticipant.getAction())) {
+            participant.setActive(true);
+            sessionFactory.getCurrentSession().save(participant);
+        }
+        else if (RegisteredParticipant.ActionUpdate.equals(registeredParticipant.getAction())) {
+            sessionFactory.getCurrentSession().update(participant);
+        }
+
         for (Comment comment: registeredParticipant.getComments()) {
             comment.setParticipant(participant);
-            sessionFactory.getCurrentSession().save(comment);
+            comment.setTimecreated(new Date());
+            if (!Util.nullOrEmptyOrBlank(comment.getComments())) {
+                sessionFactory.getCurrentSession().save(comment);
+            }
         }
+
     }
 
     public void addComments(Participant participant, Comment comment)

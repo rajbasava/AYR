@@ -1,7 +1,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="mytags"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="mytags"%>
 
 <html>
 <head>
@@ -13,7 +13,7 @@
 <mytags:menu/>
 <h2 align="center">User Registration</h2>
 
-<form:form method="post" action="add.htm" commandName="RegisteredParticipant">
+<form:form method="post" action="add.htm" commandName="registeredParticipant">
 
 <table align="center" cellspacing="2">
     <tr>
@@ -67,11 +67,38 @@
         <td><form:textarea path="comments[0].comments" rows="5" cols="30"/></td>
     </tr>
 	<tr>
-		<td colspan="2">
-			<input type="submit" value="<spring:message code="label.addparticipant"/>"/>
+		<td colspan="2" align="center">
+            <form:hidden path="action"/>
+            <form:hidden path="participant.participantId"/>
+			<input type="submit" value="<c:out value="${registeredParticipant.action}"/>"/>
 		</td>
 	</tr>
-</table>	
+    <c:if  test="${!empty registeredParticipant.comments}">
+        <tr>
+            <td colspan="2">
+                <h4>Comments:</h4>
+            </td>
+        </tr>
+        <tr>
+            <table class="data" border="1" cellpadding="1" cellspacing="1" width="100%">
+            <tr>
+                <th>Prepared By</th>
+                <th>Time Created</th>
+                <th>Comment</th>
+            </tr>
+            <c:forEach items="${registeredParticipant.comments}" var="comment">
+                <c:if  test="${comment.comments != null}">
+                <tr>
+                    <td><c:out value="${comment.preparedby}"/> </td>
+                    <td><c:out value="${comment.timecreated}"/></td>
+                    <td><c:out value="${comment.comments}"/></td>
+                </tr>
+                </c:if>
+            </c:forEach>
+            </table>
+        </tr>
+    </c:if>
+</table>
 </form:form>
 <mytags:footer/>
 </body>

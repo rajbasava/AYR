@@ -41,7 +41,7 @@
         <td><form:input path="permission"/></td>
     </tr>
 	<tr>
-		<td colspan="2">
+		<td colspan="2" align="center">
 			<input type="submit" value="<spring:message code="label.addVolunteer"/>"/>
 		</td>
 	</tr>

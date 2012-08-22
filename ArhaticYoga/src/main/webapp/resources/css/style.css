@@ -1,0 +1,16 @@
+.error {
+	color: red;
+}
+
+.senior {
+	background-color: lightblue;
+}
+
+.junior {
+	background-color: lightgrey;
+}
+
+#footer {
+	text-align:center;
+	color: blue;
+}

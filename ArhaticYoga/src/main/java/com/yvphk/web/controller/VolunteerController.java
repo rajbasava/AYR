@@ -91,4 +91,10 @@ public class VolunteerController
     {
         return "welcome";
     }
+
+    @RequestMapping(value = "/")
+    public String index()
+    {
+        return "redirect:/index.htm";
+    }
 }

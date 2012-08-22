@@ -12,8 +12,12 @@ import java.util.ArrayList;
 
 public class RegisteredParticipant implements Serializable
 {
+    public static final String ActionRegister = "Register";
+    public static final String ActionUpdate = "Update";
+    
     private Participant participant;
-    private List<Comment> comments = new ArrayList();
+    private List<Comment> comments;
+    private String action;
 
     public Participant getParticipant() {
         return participant;
@@ -24,13 +28,22 @@ public class RegisteredParticipant implements Serializable
     }
 
     public List<Comment> getComments() {
-        if (comments.isEmpty()) {
-            comments.add(new Comment());
+        if (comments == null) {
+            comments = new ArrayList();
         }
+        comments.add(0,new Comment());
         return comments;
     }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }
