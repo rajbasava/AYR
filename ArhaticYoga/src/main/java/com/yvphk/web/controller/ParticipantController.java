@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.yvphk.service.ParticipantService;
 import com.yvphk.model.form.RegisteredParticipant;
 import com.yvphk.model.form.ParticipantCriteria;
 import com.yvphk.model.form.Participant;
 import com.yvphk.common.Util;
+import com.yvphk.common.ParticipantLevel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -33,6 +35,7 @@ public class ParticipantController
         RegisteredParticipant registeredParticipant = new RegisteredParticipant();
         registeredParticipant.setAction(RegisteredParticipant.ActionRegister);
         map.put("registeredParticipant", registeredParticipant);
+        map.put("allParticipantLevels", ParticipantLevel.allParticipantLevels());
         return "register";
     }
 
@@ -40,6 +43,7 @@ public class ParticipantController
     public String search(Map<String, Object> map)
     {
         map.put("participantCriteria", new ParticipantCriteria());
+        map.put("allParticipantLevels", ParticipantLevel.allParticipantLevels());
         return "search";
     }
 
@@ -58,22 +62,36 @@ public class ParticipantController
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addParticipant(RegisteredParticipant registeredParticipant,
-                             BindingResult result)
+                                 Map<String, Object> map,
+                                 BindingResult result)
     {
-        participantService.registerParticipant(registeredParticipant);
+        Participant participant = participantService.registerParticipant(registeredParticipant);
         String action = registeredParticipant.getAction();
 
         if (RegisteredParticipant.ActionUpdate.equals(action)) {
             return "redirect:/search.htm";
         }
-
-        return "redirect:/welcome.htm"; 
+        registeredParticipant = populateRegisteredParticipant(String.valueOf(participant.getParticipantId()));
+        map.put("registeredParticipant", registeredParticipant);
+        return "summary"; 
     }
+
 
     @RequestMapping("/update")
     public String updateParticipant (HttpServletRequest request, Map<String, Object> map)
     {
         String strParticipantId = request.getParameter("participantId");
+        RegisteredParticipant registeredParticipant = populateRegisteredParticipant (strParticipantId);
+        if (registeredParticipant != null) {
+            map.put("registeredParticipant", registeredParticipant);
+            map.put("allParticipantLevels", ParticipantLevel.allParticipantLevels());
+            return "register";
+        }
+        return "null";
+    }
+
+    private RegisteredParticipant populateRegisteredParticipant (String strParticipantId)
+    {
         if (!Util.nullOrEmptyOrBlank(strParticipantId)) {
             Integer participantId = Integer.parseInt(strParticipantId);
             Participant participant = participantService.getParticipant(participantId);
@@ -82,10 +100,10 @@ public class ParticipantController
             registeredParticipant.setComments(new ArrayList(participant.getComments()));
             registeredParticipant.setSeats(new ArrayList(participant.getSeats()));
             registeredParticipant.setAction(RegisteredParticipant.ActionUpdate);
-            map.put("registeredParticipant", registeredParticipant);
-            return "register";
+            return registeredParticipant;
         }
-        return "null";
+
+        return null;
     }
 
 }

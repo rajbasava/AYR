@@ -19,6 +19,7 @@ import com.yvphk.model.form.Volunteer;
 import com.yvphk.model.form.Login;
 import com.yvphk.service.VolunteerService;
 import com.yvphk.common.Util;
+import com.yvphk.common.VolunteerPermission;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,6 +35,7 @@ public class VolunteerController
     {
         map.put("volunteer", new Volunteer());
         map.put("volunteerList", volunteerService.listVolunteer());
+        map.put("allVolunteerPermissions", VolunteerPermission.allVolunteerPermissions());
         return "volunteer";
     }
 

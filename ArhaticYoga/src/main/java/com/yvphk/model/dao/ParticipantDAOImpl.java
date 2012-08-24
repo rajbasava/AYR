@@ -26,7 +26,7 @@ public class ParticipantDAOImpl implements ParticipantDAO
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addParticipant (RegisteredParticipant registeredParticipant)
+    public Participant addParticipant (RegisteredParticipant registeredParticipant)
     {
         Participant participant = registeredParticipant.getParticipant();
 
@@ -35,7 +35,7 @@ public class ParticipantDAOImpl implements ParticipantDAO
 
             String level = registeredParticipant.getParticipant().getLevel();
             if (Util.nullOrEmptyOrBlank(registeredParticipant.getParticipant().getLevel())) {
-                return ;
+                return null;
             }
             sessionFactory.getCurrentSession().save(participant);
 
@@ -65,6 +65,8 @@ public class ParticipantDAOImpl implements ParticipantDAO
                 sessionFactory.getCurrentSession().save(comment);
             }
         }
+
+        return participant;
 
     }
 

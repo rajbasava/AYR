@@ -38,7 +38,12 @@
 	</tr>
     <tr>
         <td><form:label path="permission"><spring:message code="label.permission"/></form:label></td>
-        <td><form:input path="permission"/></td>
+        <td>
+            <form:select path="permission">
+                <form:option value="NONE" label="--- Select ---"/>
+                <form:options items="${allVolunteerPermissions}" />
+            </form:select>
+        </td>
     </tr>
 	<tr>
 		<td colspan="2" align="center">
@@ -56,6 +61,7 @@
     <th><spring:message code="label.email"/></th>
     <th><spring:message code="label.mobile"/></th>
     <th><spring:message code="label.activity"/></th>
+    <th><spring:message code="label.permission"/></th>
 	<th>&nbsp;</th>
 </tr>
 <c:forEach items="${volunteerList}" var="volunteer">
@@ -64,6 +70,7 @@
 		<td><c:out value="${volunteer.email}"/></td>
 		<td><c:out value="${volunteer.mobile}"/></td>
 		<td><c:out value="${volunteer.activity}"/></td>
+		<td><c:out value="${volunteer.permissionName}"/></td>
 		<td>
             <form id="delVol" method="post" action="delete.htm">
             <input type="hidden" name="volunteerId" value="<c:out value="${volunteer.volunteerId}"/>" />      

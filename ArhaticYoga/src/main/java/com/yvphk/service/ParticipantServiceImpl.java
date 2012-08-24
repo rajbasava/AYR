@@ -26,9 +26,9 @@ public class ParticipantServiceImpl implements ParticipantService
     private ParticipantDAO participantDAO;
 
     @Transactional
-    public void registerParticipant(RegisteredParticipant registeredParticipant)
+    public Participant registerParticipant(RegisteredParticipant registeredParticipant)
     {
-        participantDAO.addParticipant(registeredParticipant);
+        return participantDAO.addParticipant(registeredParticipant);
     }
 
     @Transactional

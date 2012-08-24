@@ -9,8 +9,8 @@
     <script type="text/javascript" src="<c:url value="/resources/script/jquery-1.7.2.min.js"/>"></script>
     <script type="text/javascript">
         $(function() {
-            var moveLeft = 350;
-            var moveDown = 300;
+            var moveLeft = 250;
+            var moveDown = 200;
 
             $(".popup").click(function(e) {
                 var divId = $(this).attr('id');
@@ -93,7 +93,7 @@
 		<td><c:out value="${participant.email}"/></td>
 		<td><c:out value="${participant.mobile}"/></td>
 		<td><c:out value="${participant.foundation}"/></td>
-		<td><c:out value="${participant.level}"/></td>
+		<td><c:out value="${participant.levelName}"/></td>
 		<td><c:out value="${participant.foodcoupon}"/></td>
 		<td><c:out value="${participant.eventkit}"/></td>
 		<td><c:out value="${participant.amountpaid}"/></td>

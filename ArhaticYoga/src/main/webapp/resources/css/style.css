@@ -43,5 +43,7 @@
     position:absolute;
     color:#6fa5e2;
     font-weight:500;
+    botton:5px;
+    right:140px
     cursor: pointer;
 }

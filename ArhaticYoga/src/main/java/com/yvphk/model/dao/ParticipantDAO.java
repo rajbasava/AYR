@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ParticipantDAO
 {
-    public void addParticipant (RegisteredParticipant registeredParticipant);
+    public Participant addParticipant (RegisteredParticipant registeredParticipant);
     public void addComments (Participant participant, Comment comment);
     public Participant getParticipant (Integer userId);
     public List<Participant> listParticipants (ParticipantCriteria participantCriteria);

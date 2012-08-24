@@ -6,6 +6,9 @@
 */
 package com.yvphk.model.form;
 
+import com.yvphk.common.Util;
+import com.yvphk.common.VolunteerPermission;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.io.Serializable;
@@ -92,6 +95,13 @@ public class Volunteer implements Serializable
 
     public String getPermission() {
         return permission;
+    }
+
+    public String getPermissionName() {
+        if (Util.nullOrEmptyOrBlank(getPermissionName())) {
+            return null;
+        }
+        return VolunteerPermission.getName(getPermissionName());
     }
 
     public void setPermission(String permission) {

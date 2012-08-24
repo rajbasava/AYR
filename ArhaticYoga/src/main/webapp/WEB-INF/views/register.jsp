@@ -35,15 +35,10 @@
 	<tr>
 		<td><form:label path="participant.level"><spring:message code="label.level"/></form:label></td>
 		<td>
-            <form:radiobutton path="participant.level" value="PH1" label="Basic Pranic Healing"/>
-            <form:radiobutton path="participant.level" value="PH2" label="Advanced Pranic Healing"/>
-            <form:radiobutton path="participant.level" value="PH3" label="Pranic Physotherapy"/>
-            <form:radiobutton path="participant.level" value="AYL0" label="Arahtic Yoga Preparation"/>
-            <form:radiobutton path="participant.level" value="AYL1" label="Arahtic Yoga Level 1"/>
-            <form:radiobutton path="participant.level" value="AYL2" label="Arahtic Yoga Level 2"/>
-            <form:radiobutton path="participant.level" value="AYL3.1" label="Arahtic Yoga Level 3.1"/>
-            <form:radiobutton path="participant.level" value="AYL3.2" label="Arahtic Yoga Level 3.2"/>
-            <form:radiobutton path="participant.level" value="AYL4" label="Arahtic Yoga Level 4"/>
+            <form:select path="participant.level">
+                <form:option value="NONE" label="--- Select ---"/>
+                <form:options items="${allParticipantLevels}" />
+            </form:select>
         </td>
 	</tr>
     <tr>
@@ -70,17 +65,22 @@
         <td><form:label path="comments[0].comments"><spring:message code="label.comments"/></form:label></td>
         <td><form:textarea path="comments[0].comments" rows="5" cols="30"/></td>
     </tr>
-	<tr>
-		<td colspan="2" align="center">
+    <tr><td>&nbsp;<BR></td></tr>
+	<tr align="center">
+		<td align="right">
             <form:hidden path="action"/>
             <form:hidden path="participant.participantId"/>
 			<input type="submit" value="<c:out value="${registeredParticipant.action}"/>"/>
 		</td>
+		<td align="left">
+			<input type="reset" value="Cancel"/>
+		</td>
 	</tr>
+    <tr><td>&nbsp;<BR></td></tr>
     <c:if  test="${!empty registeredParticipant.comments}">
         <tr>
             <td colspan="2">
-                <h4>Comments:</h4>
+                <b>Comments:</b>
             </td>
         </tr>
         <tr>

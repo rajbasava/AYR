@@ -7,6 +7,9 @@
 
 package com.yvphk.model.form;
 
+import com.yvphk.common.ParticipantLevel;
+import com.yvphk.common.Util;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -114,6 +117,15 @@ public class Participant implements Serializable
 
     public String getLevel() {
         return level;
+    }
+
+    public String getLevelName() {
+
+        if (Util.nullOrEmptyOrBlank(getLevel())) {
+            return null;
+        }
+
+        return ParticipantLevel.getName(getLevel());
     }
 
     public void setLevel(String level) {
