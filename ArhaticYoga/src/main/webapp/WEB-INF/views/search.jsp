@@ -53,7 +53,12 @@
 		<td><form:label path="email"><spring:message code="label.email"/></form:label></td>
 		<td><form:input path="email" /></td>
 		<td><form:label path="level"><spring:message code="label.level"/></form:label></td>
-		<td><form:input path="level" /></td>
+		<td>
+            <form:select path="level">
+                <form:option value="" label="--- Select ---"/>
+                <form:options items="${allParticipantLevels}" />
+            </form:select>
+		</td>
 	</tr>
 	<tr>
 		<td><form:label path="mobile"><spring:message code="label.mobile"/></form:label></td>
@@ -81,12 +86,13 @@
 	<th><spring:message code="label.mobile"/></th>
 	<th><spring:message code="label.foundation"/></th>
 	<th><spring:message code="label.level"/></th>
+    <th><spring:message code="label.seat"/></th>
+    <th><spring:message code="label.receiptinfo"/></th>
+    <th><spring:message code="label.amountpaid"/></th>
+    <th><spring:message code="label.dueamount"/></th>
 	<th><spring:message code="label.foodcoupon"/></th>
 	<th><spring:message code="label.eventkit"/></th>
-	<th><spring:message code="label.receiptinfo"/></th>
-	<th><spring:message code="label.amountpaid"/></th>
-	<th><spring:message code="label.dueamount"/></th>
-	<%--<th><spring:message code="label.seat"/></th>--%>
+
 	<th><spring:message code="label.comments"/></th>
 	<th>&nbsp;</th>
 </tr>
@@ -97,12 +103,28 @@
 		<td><c:out value="${participant.mobile}"/></td>
 		<td><c:out value="${participant.foundation}"/></td>
 		<td><c:out value="${participant.levelName}"/></td>
+        <div style="display:none;" id="seatsDisplay<c:out value="${participant.participantId}"/>">
+            <c:if  test="${!empty participant.seats}">
+                <c:forEach items="${participant.seats}" var="seat">
+                    <c:if  test="${seat.seat != null}">
+                        <ul class="tooltipBullet">
+                            <li><c:out value="${participant.levelName}"/>&nbsp;-&nbsp;<c:out value="${seat.seat}"/></li>
+                        </ul>
+                    </c:if>
+                </c:forEach>
+            </c:if>
+            <p align="center"></p><a class="popupBoxClose" href="#" id="seatsDisplay<c:out value="${participant.participantId}"/>">Close</a></p>
+        </div>
+		<td>
+            <a class="popup" href="#" id="seatsDisplay<c:out value="${participant.participantId}"/>">
+                <spring:message code="label.seat"/>
+            </a>
+        </td>
+        <td><c:out value="${participant.receiptinfo}"/></td>
+        <td><c:out value="${participant.amountpaid}"/></td>
+        <td><c:out value="${participant.dueamount}"/></td>
 		<td><c:out value="${participant.foodcoupon}"/></td>
 		<td><c:out value="${participant.eventkit}"/></td>
-		<td><c:out value="${participant.receiptinfo}"/></td>
-		<td><c:out value="${participant.amountpaid}"/></td>
-		<td><c:out value="${participant.dueamount}"/></td>
-		<%--<td> <c:if  test="${!empty participant.seats}"><c:out value="${participant.seats.seat}"/></c:if></td>--%>
         <div style="display:none;" id="commentsDisplay<c:out value="${participant.participantId}"/>">
             <c:if  test="${!empty participant.comments}">
                 <c:forEach items="${participant.comments}" var="comment">
