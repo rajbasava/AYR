@@ -15,7 +15,7 @@ public class ParticipantCriteria implements Serializable
     private String email;
     private String level;
     private String foundation;
-    private String seat;
+    private Integer seat;
 
     public String getName() {
         return name;
@@ -57,11 +57,11 @@ public class ParticipantCriteria implements Serializable
         this.foundation = foundation;
     }
 
-    public String getSeat() {
+    public Integer getSeat() {
         return seat;
     }
 
-    public void setSeat(String seat) {
+    public void setSeat(Integer seat) {
         this.seat = seat;
     }
 }

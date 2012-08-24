@@ -9,6 +9,7 @@ package com.yvphk.service;
 import com.yvphk.model.form.Participant;
 import com.yvphk.model.form.ParticipantCriteria;
 import com.yvphk.model.form.RegisteredParticipant;
+import com.yvphk.model.form.ParticipantSeat;
 
 import java.util.List;
 

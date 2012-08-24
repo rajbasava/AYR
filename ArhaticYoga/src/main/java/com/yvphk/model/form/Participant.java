@@ -42,15 +42,21 @@ public class Participant implements Serializable
     @Column(name="EVENTKIT")
     private boolean eventkit;
 
+    @Column(name="AMOUNT")
+    private Integer amount;
+
     @Column(name="AMOUNTPAID")
     private Integer amountpaid;
 
     @Column(name="DUEAMOUNT")
     private Integer dueamount;
 
+	@Column(name="RECEIPTINFO")
+	private String receiptinfo;
+    
 	@Column(name="PREPAREDBY")
 	private String preparedby;
-	
+
 	@Column(name="TIMECREATED")
 	private Date timecreated;
 	
@@ -192,5 +198,21 @@ public class Participant implements Serializable
 
     public void setSeats(Set<ParticipantSeat> seats) {
         this.seats = seats;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public String getReceiptinfo() {
+        return receiptinfo;
+    }
+
+    public void setReceiptinfo(String receiptinfo) {
+        this.receiptinfo = receiptinfo;
     }
 }

@@ -12,10 +12,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import com.yvphk.model.form.Participant;
-import com.yvphk.model.form.Comment;
-import com.yvphk.model.form.RegisteredParticipant;
-import com.yvphk.model.form.ParticipantCriteria;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import com.yvphk.model.form.*;
 import com.yvphk.common.Util;
 
 import java.util.List;
@@ -27,13 +26,33 @@ public class ParticipantDAOImpl implements ParticipantDAO
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addParticipant(RegisteredParticipant registeredParticipant)
+    public void addParticipant (RegisteredParticipant registeredParticipant)
     {
         Participant participant = registeredParticipant.getParticipant();
 
         if (RegisteredParticipant.ActionRegister.equals(registeredParticipant.getAction())) {
             participant.setActive(true);
+
+            String level = registeredParticipant.getParticipant().getLevel();
+            if (Util.nullOrEmptyOrBlank(registeredParticipant.getParticipant().getLevel())) {
+                return ;
+            }
             sessionFactory.getCurrentSession().save(participant);
+
+            List<ParticipantSeat> seats = registeredParticipant.getSeats();
+            for (ParticipantSeat participantSeat : seats) {
+                if (participantSeat.getSeat() == null) {
+                    Integer greatestSeat = getGreatestSeat(level);
+                    Integer greatestSeatNo = new Integer(1);
+                    if (greatestSeat != null) {
+                        greatestSeatNo = greatestSeat.intValue() + 1;
+                    }
+                    participantSeat.setSeat(greatestSeatNo);
+                }
+                participantSeat.setLevel(level);
+                participantSeat.setParticipant(participant);
+                sessionFactory.getCurrentSession().save(participantSeat);
+            }
         }
         else if (RegisteredParticipant.ActionUpdate.equals(registeredParticipant.getAction())) {
             sessionFactory.getCurrentSession().update(participant);
@@ -49,7 +68,7 @@ public class ParticipantDAOImpl implements ParticipantDAO
 
     }
 
-    public void addComments(Participant participant, Comment comment)
+    public void addComments (Participant participant, Comment comment)
     {
         
     }
@@ -65,6 +84,11 @@ public class ParticipantDAOImpl implements ParticipantDAO
     {
         Session session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(Participant.class);
+
+        if (participantCriteria.getSeat() != null) {
+            criteria.createCriteria("seats","seats");
+            criteria.add(Restrictions.eq("seats.seat", participantCriteria.getSeat()));
+        }
 
         if (!Util.nullOrEmptyOrBlank(participantCriteria.getName())) {
             criteria.add(Restrictions.like("name","%"+participantCriteria.getName()+"%"));
@@ -87,5 +111,24 @@ public class ParticipantDAOImpl implements ParticipantDAO
         }
 
         return criteria.list();
+    }
+
+    public Integer getGreatestSeat (String level)
+    {
+        Session session = sessionFactory.openSession();
+        Criteria criteria = session.createCriteria(ParticipantSeat.class);
+        criteria.setProjection(Projections.max("seat"));
+
+        if (!Util.nullOrEmptyOrBlank(level)) {
+            criteria.add(Restrictions.like("level",level));
+        }
+
+        List seats = criteria.list();
+        if (!seats.isEmpty()) {
+                return (Integer)seats.get(0);
+        }
+        else {
+            return null;
+        }
     }
 }

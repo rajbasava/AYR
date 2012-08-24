@@ -80,6 +80,7 @@ public class ParticipantController
             RegisteredParticipant registeredParticipant = new RegisteredParticipant();
             registeredParticipant.setParticipant(participant);
             registeredParticipant.setComments(new ArrayList(participant.getComments()));
+            registeredParticipant.setSeats(new ArrayList(participant.getSeats()));
             registeredParticipant.setAction(RegisteredParticipant.ActionUpdate);
             map.put("registeredParticipant", registeredParticipant);
             return "register";

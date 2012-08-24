@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yvphk.model.form.Participant;
 import com.yvphk.model.form.ParticipantCriteria;
 import com.yvphk.model.form.RegisteredParticipant;
+import com.yvphk.model.form.ParticipantSeat;
 import com.yvphk.model.dao.ParticipantDAO;
 import com.yvphk.model.dao.VolunteerDAO;
+import com.yvphk.common.Util;
 
 import java.util.List;
 
@@ -36,8 +38,9 @@ public class ParticipantServiceImpl implements ParticipantService
     }
 
     @Transactional
-    public List<Participant> listParticipants(ParticipantCriteria participantCriteria) {
-
+    public List<Participant> listParticipants(ParticipantCriteria participantCriteria)
+    {
         return participantDAO.listParticipants(participantCriteria);
     }
+
 }

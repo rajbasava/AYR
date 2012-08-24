@@ -17,6 +17,7 @@ public class RegisteredParticipant implements Serializable
     
     private Participant participant;
     private List<Comment> comments;
+    private List<ParticipantSeat> seats;
     private String action;
 
     public Participant getParticipant() {
@@ -45,5 +46,13 @@ public class RegisteredParticipant implements Serializable
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public List<ParticipantSeat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<ParticipantSeat> seats) {
+        this.seats = seats;
     }
 }

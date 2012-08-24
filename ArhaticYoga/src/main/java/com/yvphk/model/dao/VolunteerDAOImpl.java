@@ -81,10 +81,12 @@ public class VolunteerDAOImpl implements VolunteerDAO
 
     public void processLogout (Login login)
     {
-        Volunteer volunteer = getVolunteerByEmail(login.getEmail());
-        LoggedInVolunteer loggedInVolunteer = volunteer.getLogin();
-        loggedInVolunteer.setLoggedout(new Date());
-        sessionFactory.getCurrentSession().update(loggedInVolunteer);
+        if (login != null && !Util.nullOrEmptyOrBlank(login.getEmail())) {
+            Volunteer volunteer = getVolunteerByEmail(login.getEmail());
+            LoggedInVolunteer loggedInVolunteer = volunteer.getLogin();
+            loggedInVolunteer.setLoggedout(new Date());
+            sessionFactory.getCurrentSession().update(loggedInVolunteer);
+        }
     }
 
     private Volunteer getVolunteerByEmail (String email) 

@@ -63,6 +63,10 @@
         <td><form:input path="participant.dueamount"/></td>
     </tr>
     <tr>
+        <td><form:label path="seats[0].seat"><spring:message code="label.seat"/></form:label></td>
+        <td><form:input path="seats[0].seat"/></td>
+    </tr>
+    <tr>
         <td><form:label path="comments[0].comments"><spring:message code="label.comments"/></form:label></td>
         <td><form:textarea path="comments[0].comments" rows="5" cols="30"/></td>
     </tr>

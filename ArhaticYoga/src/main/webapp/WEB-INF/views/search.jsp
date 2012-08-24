@@ -6,6 +6,31 @@
 <html>
 <head>
 	<title>Arhatic Yoga Retreat - Search</title>
+    <script type="text/javascript" src="<c:url value="/resources/script/jquery-1.7.2.min.js"/>"></script>
+    <script type="text/javascript">
+        $(function() {
+            var moveLeft = 350;
+            var moveDown = 300;
+
+            $(".popup").click(function(e) {
+                var divId = $(this).attr('id');
+                $("div#"+divId).show()
+                    .css('top', e.pageY - moveDown)
+                    .css('left', e.pageX - moveLeft)
+                    .css('position','absolute')
+                    .css({"background-color":"#FFFFFF","font-size":"15px"})
+                    .css({"border":"2px solid #B8B8B8","padding":"15px"})
+                    .height("150px")
+                    .width("300px")
+                    .appendTo('body');
+            });
+
+            $(".popupBoxClose").click(function() {
+                var divId = $(this).attr('id');
+                $("div#"+divId).hide();
+            });
+        });
+    </script>
 </head>
 <mytags:style/>
 </head>
@@ -19,21 +44,26 @@
     <tr>
 		<td><form:label path="name"><spring:message code="label.name"/></form:label></td>
 		<td><form:input path="name" /></td>
+        <td><form:label path="foundation"><spring:message code="label.foundation"/></form:label></td>
+        <td><form:input path="foundation" size="50"/></td>
 	</tr>
 	<tr>
 		<td><form:label path="email"><spring:message code="label.email"/></form:label></td>
 		<td><form:input path="email" /></td>
+		<td><form:label path="level"><spring:message code="label.level"/></form:label></td>
+		<td><form:input path="level" /></td>
 	</tr>
 	<tr>
 		<td><form:label path="mobile"><spring:message code="label.mobile"/></form:label></td>
 		<td><form:input path="mobile" /></td>
+		<td><form:label path="seat"><spring:message code="label.seat"/></form:label></td>
+		<td><form:input path="seat" /></td>
 	</tr>
 	<tr>
-		<td><form:label path="foundation"><spring:message code="label.foundation"/></form:label></td>
-		<td><form:input path="foundation" size="50"/></td>
+        &nbsp;
 	</tr>
 	<tr>
-		<td colspan="2" align="center">
+		<td colspan="4" align="center">
 			<input type="submit" value="<spring:message code="label.search"/>"/>
 		</td>
 	</tr>
@@ -53,6 +83,7 @@
 	<th><spring:message code="label.eventkit"/></th>
 	<th><spring:message code="label.amountpaid"/></th>
 	<th><spring:message code="label.dueamount"/></th>
+	<%--<th><spring:message code="label.seat"/></th>--%>
 	<th><spring:message code="label.comments"/></th>
 	<th>&nbsp;</th>
 </tr>
@@ -67,30 +98,21 @@
 		<td><c:out value="${participant.eventkit}"/></td>
 		<td><c:out value="${participant.amountpaid}"/></td>
 		<td><c:out value="${participant.dueamount}"/></td>
-        <%--<div id="commentsDisplay<c:out value="${participant.participantId}"/>"--%>
-             <%--style="border:1px solid black;display:none;width:400px;height:300px;">--%>
-            <%--<c:if  test="${!empty participant.comments}">--%>
-                <%--<table class="data" border="1" cellpadding="1" cellspacing="1" width="100%">--%>
-                <%--<tr>--%>
-                    <%--<th>Prepared By</th>--%>
-                    <%--<th>Time Created</th>--%>
-                    <%--<th>Comment</th>--%>
-                <%--</tr>--%>
-                <%--<c:forEach items="${participant.comments}" var="comment">--%>
-                    <%--<c:if  test="${comment.comments != null}">--%>
-                    <%--<tr>--%>
-                        <%--<td><c:out value="${comment.preparedby}"/> </td>--%>
-                        <%--<td><c:out value="${comment.timecreated}"/></td>--%>
-                        <%--<td><c:out value="${comment.comments}"/></td>--%>
-                    <%--</tr>--%>
-                    <%--</c:if>--%>
-                <%--</c:forEach>--%>
-                <%--</table>--%>
-            <%--</c:if>--%>
-        <%--</div>--%>
+		<%--<td> <c:if  test="${!empty participant.seats}"><c:out value="${participant.seats.seat}"/></c:if></td>--%>
+        <div style="display:none;" id="commentsDisplay<c:out value="${participant.participantId}"/>">
+            <c:if  test="${!empty participant.comments}">
+                <c:forEach items="${participant.comments}" var="comment">
+                    <c:if  test="${comment.comments != null}">
+                        <ul class="tooltipBullet">
+                        <li><c:out value="${comment.comments}"/>&nbsp;[<c:out value="${comment.preparedby}"/>,<c:out value="${comment.timecreated}"/>]</li>
+                        </ul>
+                    </c:if>
+                </c:forEach>
+            </c:if>
+            <p align="center"></p><a class="popupBoxClose" href="#" id="commentsDisplay<c:out value="${participant.participantId}"/>">Close</a></p>
+        </div>
 		<td>
-            <%--<a href="#" onclick="Popup.show('commentsDisplay<c:out value="${participant.participantId}"/>');return false;">--%>
-            <a href="#" onclick="">
+            <a class="popup" href="#" id="commentsDisplay<c:out value="${participant.participantId}"/>">
                 <spring:message code="label.comments"/>
             </a>
         </td>
