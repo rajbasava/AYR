@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.yvphk.service.ParticipantService;
-import com.yvphk.model.form.RegisteredParticipant;
-import com.yvphk.model.form.ParticipantCriteria;
-import com.yvphk.model.form.Participant;
+import com.yvphk.model.form.*;
 import com.yvphk.common.Util;
 import com.yvphk.common.ParticipantLevel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ParticipantController
@@ -63,18 +62,35 @@ public class ParticipantController
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addParticipant(RegisteredParticipant registeredParticipant,
                                  Map<String, Object> map,
-                                 BindingResult result)
+                                 BindingResult result,
+                                 HttpServletRequest request)
     {
-        Participant participant = participantService.registerParticipant(registeredParticipant);
+        Login login = (Login) request.getSession().getAttribute(Login.ClassName);
         String action = registeredParticipant.getAction();
+
+        if (RegisteredParticipant.ActionRegister.equals(action)) {
+            registeredParticipant.getParticipant().setPreparedby(login.getEmail());
+        }
+
+        List<Comment>  commentList = registeredParticipant.getComments();
+        for (Comment comment: commentList) {
+            if (!Util.nullOrEmptyOrBlank(comment.getComments())) {
+                comment.setPreparedby(login.getEmail());
+            }
+        }
+
+        Participant participant = participantService.registerParticipant(registeredParticipant);
 
         if (RegisteredParticipant.ActionUpdate.equals(action)) {
             return "redirect:/search.htm";
         }
+        
         registeredParticipant = populateRegisteredParticipant(String.valueOf(participant.getParticipantId()));
         map.put("registeredParticipant", registeredParticipant);
         return "summary"; 
     }
+
+
 
 
     @RequestMapping("/update")

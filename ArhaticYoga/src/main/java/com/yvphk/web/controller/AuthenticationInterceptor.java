@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yvphk.model.form.Login;
+import com.yvphk.common.Util;
+
+import java.util.Date;
 
 @Component
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter
@@ -27,9 +30,14 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter
                 !uri.endsWith("login.htm") &&
                 !uri.endsWith("logout.htm")) {
             Login userData = (Login) request.getSession().getAttribute(Login.class.getName());
-            if (userData == null) {
+            if (userData == null ||
+                    Util.nullOrEmptyOrBlank(userData.getEmail()) ||
+                    (new Date().getTime() - userData.getLastAccessed()) > 30*60*1000) {
                 response.sendRedirect("index.htm");
                 return false;
+            }
+            else {
+                userData.setLastAccessed(new Date().getTime());
             }
         }
         return true;

@@ -12,8 +12,8 @@ import java.util.LinkedHashMap;
 public enum VolunteerPermission
 {
     Admin("admin","Administrator"),
-    RegVol("RegVol","Registration Volunteer"),
-    Vol("Vol","Volunteer");
+    RegVol("regtvoln","Registration Volunteer"),
+    Vol("voln","Volunteer");
 
     private String key;
     private String name;

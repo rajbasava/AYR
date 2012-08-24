@@ -98,10 +98,10 @@ public class Volunteer implements Serializable
     }
 
     public String getPermissionName() {
-        if (Util.nullOrEmptyOrBlank(getPermissionName())) {
+        if (Util.nullOrEmptyOrBlank(getPermission())) {
             return null;
         }
-        return VolunteerPermission.getName(getPermissionName());
+        return VolunteerPermission.getName(getPermission());
     }
 
     public void setPermission(String permission) {

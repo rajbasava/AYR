@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 
 import java.util.Map;
+import java.util.Date;
 
 import com.yvphk.model.form.Volunteer;
 import com.yvphk.model.form.Login;
@@ -40,9 +41,12 @@ public class VolunteerController
     }
 
     @RequestMapping(value="/addVolunteer", method = RequestMethod.POST)
-    public String newVolunteer (@ModelAttribute("volunteer")
-	Volunteer volunteer, BindingResult result)
+    public String newVolunteer (@ModelAttribute("volunteer") Volunteer volunteer,
+                                HttpServletRequest request,
+                                BindingResult result)
     {
+        Login login = (Login) request.getSession().getAttribute(Login.ClassName);
+        volunteer.setPreparedBy(login.getEmail());
         volunteerService.addVolunteer(volunteer);
         return "redirect:/volunteer.htm";
     }
@@ -71,7 +75,8 @@ public class VolunteerController
     {
         boolean isValid = volunteerService.processLogin(login);
         if (isValid) {
-            session.setAttribute(login.getClass().getName(), login);
+            login.setLastAccessed(new Date().getTime());
+            session.setAttribute(Login.ClassName, login);
             return "redirect:/welcome.htm";
         }
         else {
@@ -82,7 +87,7 @@ public class VolunteerController
     @RequestMapping("/logout")
     public String processlogout (HttpServletRequest request , HttpSession session)
     {
-        Login login = (Login) session.getAttribute(Login.class.getName());
+        Login login = (Login) session.getAttribute(Login.ClassName);
         volunteerService.processLogout(login);
         session.invalidate();
         return "redirect:/index.htm";

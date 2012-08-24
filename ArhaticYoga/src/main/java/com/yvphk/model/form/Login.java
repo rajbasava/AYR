@@ -7,12 +7,18 @@
 package com.yvphk.model.form;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Login implements Serializable
 {
+    public static final String ClassName = "com.yvphk.model.form.Login";
+    
     private String email;
     private String password;
     private String counter;
+    private String permission;
+    private Integer volunteerId;
+    private long lastAccessed;
 
     public String getEmail() {
         return email;
@@ -36,5 +42,29 @@ public class Login implements Serializable
 
     public void setCounter(String counter) {
         this.counter = counter;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public Integer getVolunteerId() {
+        return volunteerId;
+    }
+
+    public void setVolunteerId(Integer volunteerId) {
+        this.volunteerId = volunteerId;
+    }
+
+    public long getLastAccessed() {
+        return lastAccessed;
+    }
+
+    public void setLastAccessed(long lastAccessed) {
+        this.lastAccessed = lastAccessed;
     }
 }

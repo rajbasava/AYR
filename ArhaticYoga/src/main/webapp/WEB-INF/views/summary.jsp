@@ -5,13 +5,13 @@
 
 <html>
 <head>
-	<title>Arhatic Yoga Retreat - Registration</title>
+	<title>Arhatic Yoga Retreat - Participant Summary</title>
 </head>
 <mytags:style/>
 </head>
 <body>
 <mytags:menu/>
-<h2 align="center">User Registration Summary</h2>
+<h2 align="center">Participant Summary</h2>
 
 <table align="center" cellspacing="2" cellpadding="2" width="50%">
     <tr>
@@ -37,12 +37,12 @@
         </td>
 	</tr>
     <tr>
-        <td><spring:message code="label.foodcoupon"/></td>
-        <td><c:out value="${registeredParticipant.participant.foodcoupon}"/></td>
+        <td><spring:message code="label.receiptinfo"/></td>
+        <td><c:out value="${registeredParticipant.participant.receiptinfo}"/></td>
     </tr>
     <tr>
-        <td><spring:message code="label.eventkit"/></td>
-        <td><c:out value="${registeredParticipant.participant.eventkit}"/></td>
+        <td><spring:message code="label.amount"/></td>
+        <td><c:out value="${registeredParticipant.participant.amount}"/></td>
     </tr>
     <tr>
         <td><spring:message code="label.amountpaid"/></td>
@@ -51,6 +51,14 @@
     <tr>
         <td><spring:message code="label.dueamount"/></td>
         <td><c:out value="${registeredParticipant.participant.dueamount}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.foodcoupon"/></td>
+        <td><c:out value="${registeredParticipant.participant.foodcoupon}"/></td>
+    </tr>
+    <tr>
+        <td><spring:message code="label.eventkit"/></td>
+        <td><c:out value="${registeredParticipant.participant.eventkit}"/></td>
     </tr>
     </table>
     <table cellspacing="1" cellpadding="1" width="100%">

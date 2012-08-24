@@ -18,8 +18,10 @@
                     .css('top', e.pageY - moveDown)
                     .css('left', e.pageX - moveLeft)
                     .css('position','absolute')
+                    .css('overflow','auto')
                     .css({"background-color":"#FFFFFF","font-size":"15px"})
                     .css({"border":"2px solid #B8B8B8","padding":"15px"})
+                    .css({"z-index":"100","box-shadow":"0 0 5px #C4C4C4"})
                     .height("150px")
                     .width("300px")
                     .appendTo('body');
@@ -81,6 +83,7 @@
 	<th><spring:message code="label.level"/></th>
 	<th><spring:message code="label.foodcoupon"/></th>
 	<th><spring:message code="label.eventkit"/></th>
+	<th><spring:message code="label.receiptinfo"/></th>
 	<th><spring:message code="label.amountpaid"/></th>
 	<th><spring:message code="label.dueamount"/></th>
 	<%--<th><spring:message code="label.seat"/></th>--%>
@@ -96,6 +99,7 @@
 		<td><c:out value="${participant.levelName}"/></td>
 		<td><c:out value="${participant.foodcoupon}"/></td>
 		<td><c:out value="${participant.eventkit}"/></td>
+		<td><c:out value="${participant.receiptinfo}"/></td>
 		<td><c:out value="${participant.amountpaid}"/></td>
 		<td><c:out value="${participant.dueamount}"/></td>
 		<%--<td> <c:if  test="${!empty participant.seats}"><c:out value="${participant.seats.seat}"/></c:if></td>--%>

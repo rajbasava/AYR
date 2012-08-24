@@ -37,6 +37,7 @@ public class ParticipantDAOImpl implements ParticipantDAO
             if (Util.nullOrEmptyOrBlank(registeredParticipant.getParticipant().getLevel())) {
                 return null;
             }
+            participant.setTimecreated(new Date());
             sessionFactory.getCurrentSession().save(participant);
 
             List<ParticipantSeat> seats = registeredParticipant.getSeats();
@@ -55,6 +56,7 @@ public class ParticipantDAOImpl implements ParticipantDAO
             }
         }
         else if (RegisteredParticipant.ActionUpdate.equals(registeredParticipant.getAction())) {
+            participant.setTimeupdated(new Date());
             sessionFactory.getCurrentSession().update(participant);
         }
 

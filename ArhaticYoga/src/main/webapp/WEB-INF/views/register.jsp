@@ -42,12 +42,12 @@
         </td>
 	</tr>
     <tr>
-        <td><form:label path="participant.foodcoupon"><spring:message code="label.foodcoupon"/></form:label></td>
-        <td><form:checkbox path="participant.foodcoupon"/></td>
+        <td><form:label path="participant.receiptinfo"><spring:message code="label.receiptinfo"/></form:label></td>
+        <td><form:input path="participant.receiptinfo"/></td>
     </tr>
     <tr>
-        <td><form:label path="participant.eventkit"><spring:message code="label.eventkit"/></form:label></td>
-        <td><form:checkbox path="participant.eventkit"/></td>
+        <td><form:label path="participant.amount"><spring:message code="label.amount"/></form:label></td>
+        <td><form:input path="participant.amount"/></td>
     </tr>
     <tr>
         <td><form:label path="participant.amountpaid"><spring:message code="label.amountpaid"/></form:label></td>
@@ -60,6 +60,14 @@
     <tr>
         <td><form:label path="seats[0].seat"><spring:message code="label.seat"/></form:label></td>
         <td><form:input path="seats[0].seat"/></td>
+    </tr>
+    <tr>
+        <td><form:label path="participant.foodcoupon"><spring:message code="label.foodcoupon"/></form:label></td>
+        <td><form:checkbox path="participant.foodcoupon"/></td>
+    </tr>
+    <tr>
+        <td><form:label path="participant.eventkit"><spring:message code="label.eventkit"/></form:label></td>
+        <td><form:checkbox path="participant.eventkit"/></td>
     </tr>
     <tr>
         <td><form:label path="comments[0].comments"><spring:message code="label.comments"/></form:label></td>

@@ -65,15 +65,16 @@ public class VolunteerDAOImpl implements VolunteerDAO
                 loggedInVolunteer.setCounter(login.getCounter());
                 loggedInVolunteer.setLoggedin(new Date());
                 sessionFactory.getCurrentSession().save(loggedInVolunteer);
-                return true;
             }
             else {
                 loggedInVolunteer.setCounter(login.getCounter());
                 loggedInVolunteer.setLoggedin(new Date());
                 loggedInVolunteer.setLoggedout(null);
                 sessionFactory.getCurrentSession().update(loggedInVolunteer);
-                return true;
             }
+            login.setVolunteerId(volunteer.getVolunteerId());
+            login.setPermission(volunteer.getPermission());
+            return true;
         }
 
         return false;
