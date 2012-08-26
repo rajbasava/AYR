@@ -135,7 +135,7 @@
                     </c:if>
                 </c:forEach>
             </c:if>
-            <p align="center"></p><a class="popupBoxClose" href="#" id="commentsDisplay<c:out value="${participant.participantId}"/>">Close</a></p>
+            <a class="popupBoxClose" href="#" id="commentsDisplay<c:out value="${participant.participantId}"/>">Close</a>
         </div>
 		<td>
             <a class="popup" href="#" id="commentsDisplay<c:out value="${participant.participantId}"/>">

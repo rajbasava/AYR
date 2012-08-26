@@ -42,6 +42,12 @@ public class VolunteerDAOImpl implements VolunteerDAO
     {
         Volunteer volunteer = (Volunteer) sessionFactory.getCurrentSession().load(
                 Volunteer.class, id);
+        LoggedInVolunteer loggedInVolunteer = volunteer.getLogin();
+
+        if (null != loggedInVolunteer) {
+            sessionFactory.getCurrentSession().delete(loggedInVolunteer);
+        }
+
         if (null != volunteer) {
             sessionFactory.getCurrentSession().delete(volunteer);
         }
@@ -98,6 +104,7 @@ public class VolunteerDAOImpl implements VolunteerDAO
         criteria.add(Restrictions.eq("email",email));
         List<Volunteer> volunteers = criteria.list();
 
+        session.close();
         if (volunteers == null ||
                 volunteers.isEmpty()) {
             return null;

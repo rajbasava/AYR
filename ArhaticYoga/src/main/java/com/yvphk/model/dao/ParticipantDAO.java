@@ -17,4 +17,5 @@ public interface ParticipantDAO
     public Participant getParticipant (Integer userId);
     public List<Participant> listParticipants (ParticipantCriteria participantCriteria);
     public Integer getGreatestSeat (String level);
+    public void processBatchEntry (List<RegisteredParticipant> participants);
 }

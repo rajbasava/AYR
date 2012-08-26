@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.hibernate.SessionFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
@@ -19,6 +20,7 @@ import com.yvphk.common.Util;
 
 import java.util.List;
 import java.util.Date;
+import java.util.ArrayList;
 
 @Repository
 public class ParticipantDAOImpl implements ParticipantDAO
@@ -29,6 +31,7 @@ public class ParticipantDAOImpl implements ParticipantDAO
     public Participant addParticipant (RegisteredParticipant registeredParticipant)
     {
         Participant participant = registeredParticipant.getParticipant();
+        Session session = sessionFactory.openSession();
 
         if (RegisteredParticipant.ActionRegister.equals(registeredParticipant.getAction())) {
             participant.setActive(true);
@@ -38,9 +41,13 @@ public class ParticipantDAOImpl implements ParticipantDAO
                 return null;
             }
             participant.setTimecreated(new Date());
-            sessionFactory.getCurrentSession().save(participant);
+            session.save(participant);
 
             List<ParticipantSeat> seats = registeredParticipant.getSeats();
+            if (seats ==  null) {
+                seats = new ArrayList<ParticipantSeat>();
+                seats.add(new ParticipantSeat());
+            }
             for (ParticipantSeat participantSeat : seats) {
                 if (participantSeat.getSeat() == null) {
                     Integer greatestSeat = getGreatestSeat(level);
@@ -52,22 +59,23 @@ public class ParticipantDAOImpl implements ParticipantDAO
                 }
                 participantSeat.setLevel(level);
                 participantSeat.setParticipant(participant);
-                sessionFactory.getCurrentSession().save(participantSeat);
+                session.save(participantSeat);
             }
         }
         else if (RegisteredParticipant.ActionUpdate.equals(registeredParticipant.getAction())) {
             participant.setTimeupdated(new Date());
-            sessionFactory.getCurrentSession().update(participant);
+            session.update(participant);
         }
 
         for (Comment comment: registeredParticipant.getComments()) {
             comment.setParticipant(participant);
             comment.setTimecreated(new Date());
             if (!Util.nullOrEmptyOrBlank(comment.getComments())) {
-                sessionFactory.getCurrentSession().save(comment);
+                session.save(comment);
             }
         }
-
+        session.flush();
+        session.close();
         return participant;
 
     }
@@ -80,7 +88,17 @@ public class ParticipantDAOImpl implements ParticipantDAO
     public Participant getParticipant (Integer participantId)
     {
         Session session = sessionFactory.openSession();
-        Participant participant = (Participant)session.load(Participant.class, participantId);
+        Criteria criteria = session.createCriteria(Participant.class);
+        criteria.setFetchMode("comments",FetchMode.EAGER);
+        criteria.setFetchMode("seats", FetchMode.EAGER);
+        criteria.add(Restrictions.eq("participantId", participantId));
+        List results = criteria.list();
+        Participant participant = null;
+
+        if (results != null || !results.isEmpty()) {
+            participant = (Participant) results.get(0);
+        }
+        session.close();
         return participant;
     }
 
@@ -88,9 +106,10 @@ public class ParticipantDAOImpl implements ParticipantDAO
     {
         Session session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(Participant.class);
+        criteria.setFetchMode("comments",FetchMode.EAGER);
+        criteria.setFetchMode("seats", FetchMode.EAGER);
 
         if (participantCriteria.getSeat() != null) {
-            criteria.createCriteria("seats","seats");
             criteria.add(Restrictions.eq("seats.seat", participantCriteria.getSeat()));
         }
 
@@ -113,8 +132,9 @@ public class ParticipantDAOImpl implements ParticipantDAO
         if (!Util.nullOrEmptyOrBlank(participantCriteria.getLevel())) {
             criteria.add(Restrictions.eq("level",participantCriteria.getLevel()));
         }
-
-        return criteria.list();
+        List results = criteria.list();
+        session.close();
+        return results;
     }
 
     public Integer getGreatestSeat (String level)
@@ -128,11 +148,18 @@ public class ParticipantDAOImpl implements ParticipantDAO
         }
 
         List seats = criteria.list();
+        session.close();
         if (!seats.isEmpty()) {
                 return (Integer)seats.get(0);
         }
         else {
             return null;
         }
+    }
+
+    public void processBatchEntry (List<RegisteredParticipant> participants)
+    {
+        for(RegisteredParticipant participant : participants)
+            addParticipant(participant);
     }
 }

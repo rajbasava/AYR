@@ -14,11 +14,12 @@
                     <th colspan="5">Arhatic Yoga Retreat - 2013 </th>
                 </tr>
                 <tr>
-                    <td width="100px"><a href="welcome.htm">Home</a></td>
-                    <td width="100px"><a href="search.htm">Search</a></td>
-                    <td width="100px"><a href="register.htm">Registration</a></td>
-                    <td width="100px"><a href="volunteer.htm">Volunteer</a></td>
-                    <td width="100px"><a href="logout.htm">Sign Out</a></td>
+                    <td width="80px"><a href="welcome.htm">Home</a></td>
+                    <td width="125px"><a href="search.htm">Search Participants</a></td>
+                    <td width="125px"><a href="register.htm">Spot Registration</a></td>
+                    <td width="125px"><a href="volunteer.htm">Manage Volunteers</a></td>
+                    <td width="125px"><a href="batchEntry.htm">Import Participants</a></td>
+                    <td width="80px"><a href="logout.htm">Sign Out</a></td>
                 </tr>
             </table>
         </td>

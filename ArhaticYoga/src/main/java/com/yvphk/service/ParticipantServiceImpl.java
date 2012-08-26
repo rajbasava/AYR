@@ -26,21 +26,27 @@ public class ParticipantServiceImpl implements ParticipantService
     private ParticipantDAO participantDAO;
 
     @Transactional
-    public Participant registerParticipant(RegisteredParticipant registeredParticipant)
+    public Participant registerParticipant (RegisteredParticipant registeredParticipant)
     {
         return participantDAO.addParticipant(registeredParticipant);
     }
 
     @Transactional
-    public Participant getParticipant(Integer participantId)
+    public Participant getParticipant (Integer participantId)
     {
         return participantDAO.getParticipant(participantId);
     }
 
     @Transactional
-    public List<Participant> listParticipants(ParticipantCriteria participantCriteria)
+    public List<Participant> listParticipants (ParticipantCriteria participantCriteria)
     {
         return participantDAO.listParticipants(participantCriteria);
+    }
+
+    @Transactional
+    public void processBatchEntry (List<RegisteredParticipant> participants)
+    {
+        participantDAO.processBatchEntry(participants);
     }
 
 }

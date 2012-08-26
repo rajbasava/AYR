@@ -13,7 +13,8 @@ public enum VolunteerPermission
 {
     Admin("admin","Administrator"),
     RegVol("regtvoln","Registration Volunteer"),
-    Vol("voln","Volunteer");
+    SptRegVol("sptregtvoln","Spot Registration Volunteer"),
+    InfVol("infvoln","Info Volunteer");
 
     private String key;
     private String name;
@@ -43,10 +44,12 @@ public enum VolunteerPermission
 
             allVolunteerPermissions.put(VolunteerPermission.Admin.getKey(),
                     VolunteerPermission.Admin.getName());
+            allVolunteerPermissions.put(VolunteerPermission.SptRegVol.getKey(),
+                    VolunteerPermission.SptRegVol.getName());
             allVolunteerPermissions.put(VolunteerPermission.RegVol.getKey(),
                     VolunteerPermission.RegVol.getName());
-            allVolunteerPermissions.put(VolunteerPermission.Vol.getKey(),
-                    VolunteerPermission.Vol.getName());
+            allVolunteerPermissions.put(VolunteerPermission.InfVol.getKey(),
+                    VolunteerPermission.InfVol.getName());
         }
 
         return allVolunteerPermissions;
@@ -54,7 +57,7 @@ public enum VolunteerPermission
 
     public static String getName (String key)
     {
-        return allVolunteerPermissions.get(key);
+        return allVolunteerPermissions().get(key);
     }
     
 }

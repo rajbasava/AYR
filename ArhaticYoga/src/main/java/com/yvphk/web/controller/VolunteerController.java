@@ -42,8 +42,7 @@ public class VolunteerController
 
     @RequestMapping(value="/addVolunteer", method = RequestMethod.POST)
     public String newVolunteer (@ModelAttribute("volunteer") Volunteer volunteer,
-                                HttpServletRequest request,
-                                BindingResult result)
+                                HttpServletRequest request)
     {
         Login login = (Login) request.getSession().getAttribute(Login.ClassName);
         volunteer.setPreparedBy(login.getEmail());
@@ -70,8 +69,8 @@ public class VolunteerController
     }
 
     @RequestMapping("/login")
-    public String processlogin (@ModelAttribute("login")
-    Login login, BindingResult result, HttpSession session)
+    public String processlogin (@ModelAttribute("login") Login login,
+                                HttpSession session)
     {
         boolean isValid = volunteerService.processLogin(login);
         if (isValid) {
@@ -85,7 +84,7 @@ public class VolunteerController
     }
 
     @RequestMapping("/logout")
-    public String processlogout (HttpServletRequest request , HttpSession session)
+    public String processlogout (HttpSession session)
     {
         Login login = (Login) session.getAttribute(Login.ClassName);
         volunteerService.processLogout(login);
@@ -94,7 +93,7 @@ public class VolunteerController
     }
 
     @RequestMapping("/welcome")
-    public String welcome (HttpServletRequest request)
+    public String welcome ()
     {
         return "welcome";
     }

@@ -72,9 +72,9 @@
 		<td><c:out value="${volunteer.activity}"/></td>
 		<td><c:out value="${volunteer.permissionName}"/></td>
 		<td>
-            <form id="delVol" method="post" action="delete.htm">
+            <form id="delVol<c:out value="${volunteer.volunteerId}"/>" method="post" action="delete.htm">
             <input type="hidden" name="volunteerId" value="<c:out value="${volunteer.volunteerId}"/>" />      
-            <a href="#" onclick="document.getElementById('delVol').submit();"><spring:message code="label.delete"/></a>
+            <a href="#" onclick="document.getElementById('delVol<c:out value="${volunteer.volunteerId}"/>').submit();"><spring:message code="label.delete"/></a>
             </form>    
         </td>
 	</tr>

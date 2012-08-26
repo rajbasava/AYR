@@ -13,7 +13,7 @@ public enum ParticipantLevel
 {
     PH1("PH1","Basic Pranic Healing"),
     PH2("PH2","Advanced Pranic Healing"),
-    PH3("PH1","Pranic Psychotherapy"),
+    PH3("PH3","Pranic Psychotherapy"),
     AYL0("AYL0","Arahtic Yoga Preparation"),
     AYL1("AYL1","Arahtic Yoga Level 1"),
     AYL2("AYL2","Arahtic Yoga Level 2"),
@@ -63,7 +63,7 @@ public enum ParticipantLevel
 
     public static String getName (String key)
     {
-        return allParticipantLevels.get(key);
+        return allParticipantLevels().get(key);
     }
     
 }

@@ -15,7 +15,8 @@ import java.util.List;
 
 public interface ParticipantService
 {
-    public Participant registerParticipant(RegisteredParticipant registeredParticipant);
-    public Participant getParticipant(Integer participantId);
-    public List<Participant> listParticipants(ParticipantCriteria participantCriteria);
+    public Participant registerParticipant (RegisteredParticipant registeredParticipant);
+    public Participant getParticipant (Integer participantId);
+    public List<Participant> listParticipants (ParticipantCriteria participantCriteria);
+    public void processBatchEntry (List<RegisteredParticipant> participants);
 }
