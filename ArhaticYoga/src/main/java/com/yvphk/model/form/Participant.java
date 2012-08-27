@@ -72,7 +72,7 @@ public class Participant implements Serializable
     @OneToMany(mappedBy="participant")
     private Set<Comment> comments;
 
-    @OneToMany(mappedBy="participant")
+    @OneToMany(mappedBy="participant", fetch=FetchType.EAGER)
     private Set<ParticipantSeat> seats;
 
     public Integer getParticipantId() {

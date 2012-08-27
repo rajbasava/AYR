@@ -106,8 +106,8 @@ public class ParticipantDAOImpl implements ParticipantDAO
     {
         Session session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(Participant.class);
-        criteria.setFetchMode("comments",FetchMode.EAGER);
-        criteria.setFetchMode("seats", FetchMode.EAGER);
+        criteria.setFetchMode("comments",FetchMode.JOIN);
+        criteria.createAlias("seats", "seats");
 
         if (participantCriteria.getSeat() != null) {
             criteria.add(Restrictions.eq("seats.seat", participantCriteria.getSeat()));
@@ -132,7 +132,8 @@ public class ParticipantDAOImpl implements ParticipantDAO
         if (!Util.nullOrEmptyOrBlank(participantCriteria.getLevel())) {
             criteria.add(Restrictions.eq("level",participantCriteria.getLevel()));
         }
-        List results = criteria.list();
+        List<Participant> results = criteria.list();
+
         session.close();
         return results;
     }

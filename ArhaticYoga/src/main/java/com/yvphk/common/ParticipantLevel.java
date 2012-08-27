@@ -11,6 +11,10 @@ import java.util.LinkedHashMap;
 
 public enum ParticipantLevel 
 {
+    SBM("SBM","Spiritual Business Management"),
+    SBM_R("SBM_R","Spiritual Business Management - Review"),
+    FS("FS","Pranic Feng Shui"),
+    FS_R("FS_R","Pranic Feng Shui - Review"),
     PH1("PH1","Basic Pranic Healing"),
     PH2("PH2","Advanced Pranic Healing"),
     PH3("PH3","Pranic Psychotherapy"),
@@ -47,6 +51,10 @@ public enum ParticipantLevel
         if (allParticipantLevels == null) {
             allParticipantLevels = new LinkedHashMap<String,String>();
 
+            allParticipantLevels.put(ParticipantLevel.SBM.getKey(), ParticipantLevel.SBM.getName());
+            allParticipantLevels.put(ParticipantLevel.SBM_R.getKey(), ParticipantLevel.SBM_R.getName());
+            allParticipantLevels.put(ParticipantLevel.FS.getKey(), ParticipantLevel.FS.getName());
+            allParticipantLevels.put(ParticipantLevel.FS_R.getKey(), ParticipantLevel.FS_R.getName());
             allParticipantLevels.put(ParticipantLevel.PH1.getKey(), ParticipantLevel.PH1.getName());
             allParticipantLevels.put(ParticipantLevel.PH2.getKey(), ParticipantLevel.PH2.getName());
             allParticipantLevels.put(ParticipantLevel.PH3.getKey(), ParticipantLevel.PH3.getName());
