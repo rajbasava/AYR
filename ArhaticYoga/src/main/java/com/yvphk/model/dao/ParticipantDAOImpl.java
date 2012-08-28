@@ -15,6 +15,7 @@ import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.MatchMode;
 import com.yvphk.model.form.*;
 import com.yvphk.common.Util;
 
@@ -114,15 +115,15 @@ public class ParticipantDAOImpl implements ParticipantDAO
         }
 
         if (!Util.nullOrEmptyOrBlank(participantCriteria.getName())) {
-            criteria.add(Restrictions.like("name","%"+participantCriteria.getName()+"%"));
+            criteria.add(Restrictions.ilike("name", participantCriteria.getName(), MatchMode.ANYWHERE));
         }
 
         if (!Util.nullOrEmptyOrBlank(participantCriteria.getEmail())) {
-            criteria.add(Restrictions.like("email","%"+participantCriteria.getEmail()+"%"));
+            criteria.add(Restrictions.ilike("email", participantCriteria.getEmail(), MatchMode.ANYWHERE));
         }
 
         if (!Util.nullOrEmptyOrBlank(participantCriteria.getFoundation())) {
-            criteria.add(Restrictions.like("foundation","%"+participantCriteria.getFoundation()+"%"));
+            criteria.add(Restrictions.ilike("foundation", participantCriteria.getFoundation(), MatchMode.ANYWHERE));
         }
 
         if (!Util.nullOrEmptyOrBlank(participantCriteria.getMobile())) {

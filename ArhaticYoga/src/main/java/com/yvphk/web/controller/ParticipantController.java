@@ -185,6 +185,11 @@ public class ParticipantController
                         psList.add(seat);
                         registeredParticipant.setSeats(psList);
                     }
+                    else if (nodeName.equalsIgnoreCase("Foodcoupon") ||
+                            nodeName.equalsIgnoreCase("Eventkit")) {
+                        method = Participant.class.getDeclaredMethod("set" + nodeName, boolean.class);
+                        method.invoke(participant, Boolean.parseBoolean(nodeValue));
+                    }
                     else {
                         method = Participant.class.getDeclaredMethod("set" + nodeName, String.class);
                         method.invoke(participant, nodeValue);
