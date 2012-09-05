@@ -1,3 +1,3 @@
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css"/>

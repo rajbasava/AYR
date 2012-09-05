@@ -69,7 +69,7 @@ public class Participant implements Serializable
 	@Column(name="ACTIVE")
 	private boolean active;
 
-    @OneToMany(mappedBy="participant")
+    @OneToMany(mappedBy="participant", fetch=FetchType.EAGER)
     private Set<Comment> comments;
 
     @OneToMany(mappedBy="participant", fetch=FetchType.EAGER)

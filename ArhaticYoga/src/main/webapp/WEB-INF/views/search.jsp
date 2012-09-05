@@ -1,6 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="mytags"%>
 
 <html>
@@ -124,7 +124,17 @@
         <td><c:out value="${participant.amountpaid}"/></td>
         <td><c:out value="${participant.dueamount}"/></td>
 		<td><c:out value="${participant.foodcoupon}"/></td>
-		<td><c:out value="${participant.eventkit}"/></td>
+		<c:if  test="${participant.eventkit}">
+            <td style="font-weight:bold; color:green; font-size:20px;">
+                <c:out value="${participant.eventkit}"/>
+            </td>
+        </c:if>
+		<c:if  test="${!participant.eventkit}">
+            <td>
+                <c:out value="${participant.eventkit}"/>
+            </td>
+        </c:if>
+
         <div style="display:none;" id="commentsDisplay<c:out value="${participant.participantId}"/>">
             <c:if  test="${!empty participant.comments}">
                 <c:forEach items="${participant.comments}" var="comment">

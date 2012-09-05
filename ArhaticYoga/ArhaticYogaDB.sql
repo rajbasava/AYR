@@ -16,7 +16,7 @@ CREATE TABLE phk_participant (
     amount int,
 	amountpaid int,
 	dueamount int,
-    receiptinfo varchar(20),   
+    receiptinfo varchar(50),   
 	preparedby VARCHAR(50),   
 	timecreated TIMESTAMP,
 	timeupdated TIMESTAMP, 

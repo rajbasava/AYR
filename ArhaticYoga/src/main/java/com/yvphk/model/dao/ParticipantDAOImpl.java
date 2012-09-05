@@ -107,10 +107,10 @@ public class ParticipantDAOImpl implements ParticipantDAO
     {
         Session session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(Participant.class);
-        criteria.setFetchMode("comments",FetchMode.JOIN);
-        criteria.createAlias("seats", "seats");
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
         if (participantCriteria.getSeat() != null) {
+            criteria.createAlias("seats", "seats");
             criteria.add(Restrictions.eq("seats.seat", participantCriteria.getSeat()));
         }
 
